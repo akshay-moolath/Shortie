@@ -1,16 +1,17 @@
 from fastapi import FastAPI, Depends
 from fastapi.responses import FileResponse,RedirectResponse
 from app.db import Base, engine
-from app.routers.urlshortner  import router as url_router
 from sqlalchemy.orm import Session
 from app.db import get_db
 from app.routers.urlshortner import shortenurl, redirect_to_original
+from fastapi.staticfiles import StaticFiles
+
+
 
 
 app =  FastAPI()
 
-app.include_router(url_router, prefix="/urlshortner")
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 Base.metadata.create_all(bind=engine)
 
@@ -28,6 +29,6 @@ def redirect(short_code: str, db: Session = Depends(get_db)):
 def home():
     return FileResponse("static/index.html")
 
-@app.get("/urlshortner")
-def home():
-    pass
+@app.get("/favicon.ico")#added to remove favicon error
+def favicon():
+    return ""

@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-from fastapi import APIRouter
 import redis, os
 from sqlalchemy.orm import Session
 from sqlalchemy import select
@@ -12,9 +11,6 @@ from app.db import SessionLocal
 load_dotenv()
 REDIS_URL = os.getenv("REDIS_URL")
 r = redis.from_url(REDIS_URL, decode_responses=True)
-
-router = APIRouter(prefix="/urlshortner", tags=["urlshortner"])
-
 
 BASE = 62
 CHARSET_DEFAULT = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
