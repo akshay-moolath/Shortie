@@ -6,3 +6,5 @@ class urlshortner(BaseModel):
     short_code : str
     class Config:
         from_attributes = True
+class URLRequest(BaseModel):
+    url: str

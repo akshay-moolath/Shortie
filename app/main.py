@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.db import get_db
 from app.routers.urlshortner import shortenurl, redirect_to_original
 from fastapi.staticfiles import StaticFiles
-
+from app.schemas import URLRequest
 
 
 
@@ -17,8 +17,8 @@ Base.metadata.create_all(bind=engine)
 
 
 @app.post("/shorten")
-def shorten(url: str, db: Session = Depends(get_db)):
-    return shortenurl(url, db)
+def shorten(request_data: URLRequest, db: Session = Depends(get_db)):
+    return shortenurl(request_data.url, db)
 
 @app.get("/{short_code}")
 def redirect(short_code: str, db: Session = Depends(get_db)):

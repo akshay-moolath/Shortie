@@ -3,8 +3,7 @@ import redis, os
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 from app.models import URL 
-from app.db import get_db
-from app.db import SessionLocal
+
 
 
 
